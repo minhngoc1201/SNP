@@ -8,7 +8,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background: url('https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/bg-key-visual-run-as-one-2025-01-6838100db8936.png') no-repeat center center fixed;
       background-size: cover;
       color: white;
       font-family: sans-serif;
@@ -100,7 +100,7 @@
 <body>
 
   <header>
-    <img src="https://yourdomain.com/logo.png" alt="Logo Thương Hiệu" />
+    <img src="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/logo-run-as-one-2025-01-6838105ac2103.png" alt="Logo Thương Hiệu" />
     <h1>📸 Photobooth Chụp Hình</h1>
   </header>
 
