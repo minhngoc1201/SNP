@@ -5,23 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Photobooth SNP</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
-      font-family: sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background: url('https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/bg-key-visual-run-as-one-2025-01-6838100db8936.png') no-repeat center center fixed;
       background-size: cover;
       color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 10px;
     }
     header {
       text-align: center;
-      margin: 20px;
+      margin: 10px 0;
     }
     header img {
-      max-width: 40px;
+      max-width: 60px;
       height: auto;
+    }
+    header h1 {
+      font-size: 1.2rem;
+      margin: 10px 0 0;
+    }
+    .controls {
+      width: 100%;
+      max-width: 480px;
+      margin: 15px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 15px;
+      border-radius: 12px;
+    }
+    select, button {
+      width: 100%;
+      max-width: 300px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
     }
     video, canvas {
       width: 100%;
@@ -29,24 +58,17 @@
       border-radius: 10px;
       margin-top: 10px;
     }
-    .controls {
-      margin: 20px 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-    select, button {
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-    }
     #download {
-      color: #00f0ff;
       display: none;
       margin-top: 10px;
+      color: #00f0ff;
+      font-weight: bold;
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -80,12 +102,10 @@
 
   let frameImg = null;
 
-  // Bật camera
   navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => video.srcObject = stream)
     .catch(err => alert("Không thể truy cập camera: " + err));
 
-  // Khi chọn khung
   frameSelect.addEventListener('change', () => {
     const url = frameSelect.value;
     if (!url) {
@@ -97,7 +117,6 @@
     frameImg.src = url;
   });
 
-  // Chụp ảnh
   snap.addEventListener('click', () => {
     const w = video.videoWidth;
     const h = video.videoHeight;
