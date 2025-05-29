@@ -113,6 +113,16 @@
       background-color: #00f0ff;
       color: black;
     }
+    /* Hiệu ứng flash */
+    #flash {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: white;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease-out;
+      z-index: 9999;
+    }
     #download {
       display: none;
       color: #00f0ff;
@@ -133,6 +143,8 @@
   <img src="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/logo-run-as-one-2025-01-6838105ac2103.png" alt="Logo Thương hiệu">
   <h1>Photobooth SNP</h1>
 </header>
+<!-- Div tạo hiệu ứng flash -->
+<div id="flash"></div>
 
 <div class="frame-options" id="frameOptions">
   <!-- Không khung -->
@@ -171,6 +183,7 @@
   const download = document.getElementById('download');
   const frameOverlay = document.getElementById('frameOverlay');
   const frameOptions = document.getElementById('frameOptions');
+  const flash = document.getElementById("flash");
 
   let selectedFrameUrl = "";
 
@@ -236,6 +249,101 @@
     } else {
       showDownload();
     }
+  });
+
+    // Hiệu ứng flash
+    flash.style.opacity = "1";
+    setTimeout(() => {
+      flash.style.opacity = "0";
+    }, 150);
+
+    const w = video.videoWidth;
+    const h = video.videoHeight;
+    if (w === 0 || h === 0) {
+      alert("Vui lòng chờ camera khởi động...");
+      return;
+    }
+
+    canvas.width = w;
+    canvas.height = h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.drawImage(video, 0, 0, w, h);
+
+    if (selectedFrameUrl) {
+      try {
+        const frame = new Image();
+        frame.crossOrigin = "anonymous";
+        frame.src = selectedFrameUrl;
+        await frame.decode();
+        ctx.drawImage(frame, 0, 0, w, h);
+      } catch (error) {
+        console.warn("Load frame failed, vẫn tiếp tục:", error);
+      }
+    }
+    showDownload();
+  });
+
+    // Hiệu ứng flash
+    flash.style.opacity = "1";
+    setTimeout(() => {
+      flash.style.opacity = "0";
+    }, 150);
+
+    const w = video.videoWidth;
+    const h = video.videoHeight;
+    if (w === 0 || h === 0) {
+      alert("Vui lòng chờ camera khởi động...");
+      return;
+    }
+
+    canvas.width = w;
+    canvas.height = h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.drawImage(video, 0, 0, w, h);
+
+    if (selectedFrameUrl) {
+      try {
+        const frame = new Image();
+        frame.crossOrigin = "anonymous";
+        frame.src = selectedFrameUrl;
+        await frame.decode();
+        ctx.drawImage(frame, 0, 0, w, h);
+      } catch (error) {
+        console.warn("Load frame failed, vẫn tiếp tục:", error);
+      }
+    }
+    showDownload();
+  });
+ // Hiệu ứng flash
+    flash.style.opacity = "1";
+    setTimeout(() => {
+      flash.style.opacity = "0";
+    }, 150);
+
+    const w = video.videoWidth;
+    const h = video.videoHeight;
+    if (w === 0 || h === 0) {
+      alert("Vui lòng chờ camera khởi động...");
+      return;
+    }
+
+    canvas.width = w;
+    canvas.height = h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.drawImage(video, 0, 0, w, h);
+
+    if (selectedFrameUrl) {
+      try {
+        const frame = new Image();
+        frame.crossOrigin = "anonymous";
+        frame.src = selectedFrameUrl;
+        await frame.decode();
+        ctx.drawImage(frame, 0, 0, w, h);
+      } catch (error) {
+        console.warn("Load frame failed, vẫn tiếp tục:", error);
+      }
+    }
+    showDownload();
   });
 
   downloadBtn.addEventListener("click", () => {
