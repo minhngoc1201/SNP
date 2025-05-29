@@ -9,7 +9,7 @@
     body {
       margin: 0;
       font-family: sans-serif;
-      background: url('https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/bg-key-visual-run-as-one-2025-01-6838100db8936.png') no-repeat center center fixed;
+      background: url('https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/bg-key-visual-run-as-one-2025-01-6838100db8936.png') no-repeat center center fixed;;
       color: white;
       display: flex;
       flex-direction: column;
@@ -75,14 +75,25 @@
       border-radius: 10px;
     }
     video {
-      z-index: 10;
-      background: black;
-    }
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 10;
+}
     #frameOverlay {
-      z-index: 20; /* Đảm bảo nằm trên video */
-      pointer-events: none;
-      display: none;
-    }
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 20; /* Đảm bảo nằm trên video nhưng không che kín nếu ảnh không trong suốt */
+  pointer-events: none;
+  display: none;
+}
     canvas {
       display: none;
     }
@@ -111,6 +122,9 @@
       padding: 8px 16px;
       border-radius: 8px;
     }
+.markdown-body img{
+	background-color: unset !important;
+}
   </style>
 </head>
 <body>
@@ -206,7 +220,6 @@
     }
     canvas.width = w;
     canvas.height = h;
-    ctx.clearRect(0, 0, w, h);
     ctx.drawImage(video, 0, 0, w, h);
 
     if (selectedFrameUrl) {
@@ -214,10 +227,6 @@
       frame.crossOrigin = "anonymous";
       frame.onload = () => {
         ctx.drawImage(frame, 0, 0, w, h);
-        showDownload();
-      };
-      frame.onerror = () => {
-        // Nếu ảnh load lỗi vẫn hiển thị nút tải
         showDownload();
       };
       frame.src = selectedFrameUrl;
