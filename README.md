@@ -52,7 +52,7 @@
 <body>
 
 <header>
-  <img src=url('https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/bg-key-visual-run-as-one-2025-01-6838100db8936.png')" alt="Logo Thương hiệu">
+  <img src="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/bg-key-visual-run-as-one-2025-01-6838100db8936.png" alt="Logo Thương hiệu">
   <h1>Photobooth SNP</h1>
 </header>
 
