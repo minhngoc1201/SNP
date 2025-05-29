@@ -1,33 +1,56 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Photobooth Chụp Hình Thương Hiệu</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: #000;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background-size: cover;
       color: white;
       font-family: sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      max-width: 480px;
+      padding: 20px;
+      text-align: center;
+      background-color: rgba(0,0,0,0.5);
+      border-bottom: 1px solid #00f0ff;
+    }
+
+    header img {
+      max-width: 150px;
+      height: auto;
+      margin: 0 auto;
+      display: block;
     }
 
     h1 {
-      margin-top: 1rem;
+      margin: 0.5rem 0 0 0;
+      font-weight: normal;
+      font-size: 1.6rem;
+      text-shadow: 0 0 5px #00f0ff;
     }
 
     #video-container {
       position: relative;
       width: 100%;
       max-width: 480px;
-      aspect-ratio: 3/4;
+      aspect-ratio: 3 / 4;
       overflow: hidden;
       border-radius: 12px;
       margin-top: 1rem;
+      background: #000;
+      box-shadow: 0 0 15px #00f0ff;
     }
 
     video, canvas {
@@ -43,9 +66,11 @@
       flex-direction: column;
       align-items: center;
       gap: 10px;
+      width: 100%;
+      max-width: 480px;
     }
 
-    button, input[type="file"] {
+    select, button {
       background: #00f0ff;
       color: #000;
       border: none;
@@ -53,9 +78,13 @@
       font-size: 16px;
       border-radius: 10px;
       cursor: pointer;
+      width: 100%;
+      max-width: 300px;
+      box-sizing: border-box;
+      transition: background-color 0.3s ease;
     }
 
-    button:hover {
+    select:hover, button:hover {
       background: #00d0e0;
     }
 
@@ -63,18 +92,26 @@
       color: #00f0ff;
       text-decoration: underline;
       display: none;
+      margin-top: 10px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <h1>📸 Photobooth Chụp Hình</h1>
+  <header>
+    <img src="https://yourdomain.com/logo.png" alt="Logo Thương Hiệu" />
+    <h1>📸 Photobooth Chụp Hình</h1>
+  </header>
 
   <div class="controls">
-    <label>
-      🖼️ Tải lên khung PNG:
-      <input type="file" id="frameUpload" accept="image/png">
-    </label>
+    <label for="frameSelect">🖼️ Chọn khung hình thương hiệu:</label>
+    <select id="frameSelect">
+      <option value="">-- Chọn khung --</option>
+      <option value="https://i.imgur.com/7V4I4hR.png">Khung Xanh Dương</option>
+      <option value="https://i.imgur.com/8q4JcqA.png">Khung Hồng</option>
+      <option value="https://i.imgur.com/oY6P2RF.png">Khung Vàng</option>
+    </select>
 
     <button id="snap">📷 Chụp ảnh</button>
     <a id="download" download="photo.png">📥 Tải ảnh về</a>
@@ -91,7 +128,7 @@
     const context = canvas.getContext('2d');
     const snapBtn = document.getElementById('snap');
     const downloadLink = document.getElementById('download');
-    const frameUpload = document.getElementById('frameUpload');
+    const frameSelect = document.getElementById('frameSelect');
 
     let frameImage = null;
 
@@ -104,21 +141,22 @@
         alert("Không thể mở camera: " + err.message);
       });
 
-    // Xử lý file khung tải lên
-    frameUpload.addEventListener('change', e => {
-      const file = e.target.files[0];
-      if (file && file.type === 'image/png') {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const img = new Image();
-          img.onload = () => {
-            frameImage = img;
-          };
-          img.src = reader.result;
+    // Khi chọn khung thay đổi
+    frameSelect.addEventListener('change', () => {
+      const url = frameSelect.value;
+      if (url) {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => {
+          frameImage = img;
         };
-        reader.readAsDataURL(file);
+        img.onerror = () => {
+          alert('Không tải được khung hình, vui lòng kiểm tra URL.');
+          frameImage = null;
+        };
+        img.src = url;
       } else {
-        alert("Vui lòng chọn file PNG hợp lệ.");
+        frameImage = null;
       }
     });
 
@@ -126,6 +164,11 @@
     snapBtn.addEventListener('click', () => {
       const width = video.videoWidth;
       const height = video.videoHeight;
+
+      if (!width || !height) {
+        alert('Camera chưa sẵn sàng, vui lòng thử lại.');
+        return;
+      }
 
       canvas.width = width;
       canvas.height = height;
