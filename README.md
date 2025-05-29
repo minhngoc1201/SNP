@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Photobooth RUN AS ONE 2025 </title>
+  <title>Photobooth SNP</title>
   <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: sans-serif;
-      background: url('https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/bg-key-visual-run-as-one-2025-01-6838100db8936.png') no-repeat center center fixed;
-      background-size: cover;
+      background: linear-gradient(to bottom, #87cefa, #1e90ff);
       color: white;
       display: flex;
       flex-direction: column;
@@ -33,6 +33,11 @@
       gap: 10px;
       margin: 15px 0;
     }
+    .frame-option-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
     .frame-option {
       width: 80px;
       height: 80px;
@@ -45,12 +50,20 @@
     .frame-option.selected {
       border-color: #00f0ff;
     }
+    .frame-label {
+      font-size: 0.75rem;
+      color: white;
+      margin-top: 4px;
+    }
     .video-container {
       position: relative;
       width: 100%;
       max-width: 480px;
-      aspect-ratio: 3/4;
+      height: 640px;
       margin-top: 10px;
+      background: black;
+      overflow: hidden;
+      border-radius: 10px;
     }
     video, #frameOverlay {
       position: absolute;
@@ -61,8 +74,14 @@
       object-fit: cover;
       border-radius: 10px;
     }
+    video {
+      z-index: 1;
+      background: black;
+    }
     #frameOverlay {
       pointer-events: none;
+      z-index: 2;
+      display: none;
     }
     canvas {
       display: none;
@@ -102,7 +121,20 @@
 </header>
 
 <div class="frame-options" id="frameOptions">
-  <img class="frame-option" src="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/meet-tribe-06-1-683817714cf39.png" data-url="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/meet-tribe-06-1-683817714cf39.png" alt="Khung 1">
+  <!-- Không khung -->
+  <div class="frame-option-container">
+    <img class="frame-option selected" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAIElEQVR4AWP4z/D/PwMDAwMDg4GBgYGBoSFAAAC/MR+dUcA6RAAAAABJRU5ErkJggg==" data-url="" alt="No Frame">
+    <div class="frame-label">❌ Không khung</div>
+  </div>
+
+  <!-- Frame PNG -->
+  <div class="frame-option-container">
+    <img class="frame-option" 
+         src="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/meet-tribe-06-1-683817714cf39.png"
+         data-url="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/meet-tribe-06-1-683817714cf39.png" 
+         alt="Khung 1">
+    <div class="frame-label">🏞 Khung 1</div>
+  </div>
 </div>
 
 <div class="video-container">
@@ -128,23 +160,39 @@
 
   let selectedFrameUrl = "";
 
-  // Bật camera
-  navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
-    .then(stream => {
+  async function startCamera() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "user" },
+        audio: false
+      });
       video.srcObject = stream;
-      video.onloadedmetadata = () => {
-        video.play();
-      };
-    })
-    .catch(err => alert("Không thể truy cập camera: " + err));
+      await video.play();
+      console.log("Camera started");
+    } catch (err) {
+      alert("Không thể truy cập camera: " + err.message);
+      console.error("Lỗi camera:", err);
+    }
+  }
+
+  startCamera();
 
   // Chọn khung
   frameOptions.addEventListener('click', (e) => {
-    if (e.target.classList.contains('frame-option')) {
-      document.querySelectorAll('.frame-option').forEach(el => el.classList.remove('selected'));
-      e.target.classList.add('selected');
-      selectedFrameUrl = e.target.dataset.url;
+    const target = e.target.closest('.frame-option');
+    if (!target) return;
+
+    document.querySelectorAll('.frame-option').forEach(el => el.classList.remove('selected'));
+    target.classList.add('selected');
+
+    selectedFrameUrl = target.dataset.url;
+
+    if (selectedFrameUrl) {
       frameOverlay.src = selectedFrameUrl;
+      frameOverlay.style.display = 'block';
+    } else {
+      frameOverlay.src = "";
+      frameOverlay.style.display = 'none';
     }
   });
 
