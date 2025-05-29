@@ -20,11 +20,8 @@
       text-align: center;
       margin: 10px 0;
     }
-    header img {
-      max-width: 80px;
-    }
     header h1 {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
     }
     .frame-options {
       display: flex;
@@ -116,24 +113,25 @@
 <body>
 
 <header>
-  <img src="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/logo-run-as-one-2025-01-6838105ac2103.png" alt="Logo Thương hiệu">
   <h1>Photobooth SNP</h1>
 </header>
 
 <div class="frame-options" id="frameOptions">
   <!-- Không khung -->
   <div class="frame-option-container">
-    <img class="frame-option selected" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAIElEQVR4AWP4z/D/PwMDAwMDg4GBgYGBoSFAAAC/MR+dUcA6RAAAAABJRU5ErkJggg==" data-url="" alt="No Frame">
+    <img class="frame-option selected"
+         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAwAB/VRlF64AAAAASUVORK5CYII="
+         data-url="" alt="No Frame">
     <div class="frame-label">❌ Không khung</div>
   </div>
 
-  <!-- Frame PNG -->
+  <!-- Khung PNG nền trong -->
   <div class="frame-option-container">
-    <img class="frame-option" 
-         src="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/meet-tribe-06-1-683817714cf39.png"
-         data-url="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/meet-tribe-06-1-683817714cf39.png" 
-         alt="Khung 1">
-    <div class="frame-label">🏞 Khung 1</div>
+    <img class="frame-option"
+         src="./images/frame-test.png"
+         data-url="./images/frame-test.png"
+         alt="Khung SNP">
+    <div class="frame-label">🌟 Khung SNP</div>
   </div>
 </div>
 
@@ -168,65 +166,5 @@
       });
       video.srcObject = stream;
       await video.play();
-      console.log("Camera started");
     } catch (err) {
-      alert("Không thể truy cập camera: " + err.message);
-      console.error("Lỗi camera:", err);
-    }
-  }
-
-  startCamera();
-
-  // Chọn khung
-  frameOptions.addEventListener('click', (e) => {
-    const target = e.target.closest('.frame-option');
-    if (!target) return;
-
-    document.querySelectorAll('.frame-option').forEach(el => el.classList.remove('selected'));
-    target.classList.add('selected');
-
-    selectedFrameUrl = target.dataset.url;
-
-    if (selectedFrameUrl) {
-      frameOverlay.src = selectedFrameUrl;
-      frameOverlay.style.display = 'block';
-    } else {
-      frameOverlay.src = "";
-      frameOverlay.style.display = 'none';
-    }
-  });
-
-  // Chụp ảnh
-  snap.addEventListener('click', () => {
-    const w = video.videoWidth;
-    const h = video.videoHeight;
-    if (w === 0 || h === 0) {
-      alert("Vui lòng chờ camera khởi động...");
-      return;
-    }
-    canvas.width = w;
-    canvas.height = h;
-    ctx.drawImage(video, 0, 0, w, h);
-
-    if (selectedFrameUrl) {
-      const frame = new Image();
-      frame.crossOrigin = "anonymous";
-      frame.onload = () => {
-        ctx.drawImage(frame, 0, 0, w, h);
-        showDownload();
-      };
-      frame.src = selectedFrameUrl;
-    } else {
-      showDownload();
-    }
-  });
-
-  function showDownload() {
-    const dataURL = canvas.toDataURL('image/png');
-    download.href = dataURL;
-    download.style.display = 'inline';
-  }
-</script>
-
-</body>
-</html>
+      alert("Không thể truy cập camera: " +
