@@ -238,10 +238,18 @@
     }
   });
 
-  function showDownload() {
+  downloadBtn.addEventListener("click", () => {
     const dataURL = canvas.toDataURL("image/png");
-    download.href = dataURL;
-    download.style.display = "inline";
+    const a = document.createElement("a");
+    a.href = dataURL;
+    a.download = "photo.png";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+
+  function showDownload() {
+    downloadBtn.style.display = "inline-block";
   }
 </script>
 
