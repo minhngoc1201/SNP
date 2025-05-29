@@ -75,14 +75,25 @@
       border-radius: 10px;
     }
     video {
-      z-index: 1;
-      background: black;
-    }
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 10;
+}
     #frameOverlay {
-      pointer-events: none;
-      z-index: 2;
-      display: none;
-    }
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 20; /* Đảm bảo nằm trên video nhưng không che kín nếu ảnh không trong suốt */
+  pointer-events: none;
+  display: none;
+}
     canvas {
       display: none;
     }
@@ -111,6 +122,9 @@
       padding: 8px 16px;
       border-radius: 8px;
     }
+.markdown-body img{
+	background-color: unset !important;
+}
   </style>
 </head>
 <body>
