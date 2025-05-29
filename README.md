@@ -9,7 +9,7 @@
     body {
       margin: 0;
       font-family: sans-serif;
-      background: url('https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/bg-key-visual-run-as-one-2025-01-6838100db8936.png') no-repeat center center fixed;
+      background: url('./images/Logo_RUN AS ONE_2025-01.png') no-repeat center center fixed;
       color: white;
       display: flex;
       flex-direction: column;
@@ -128,8 +128,8 @@
   <!-- Khung PNG nền trong -->
   <div class="frame-option-container">
     <img class="frame-option"
-         src="./images/frame-test.png"
-         data-url="./images/frame-test.png"
+         src="./images/Frame test.png"
+         data-url="./images/Frame test.png"
          alt="Khung SNP">
     <div class="frame-label">🌟 Khung SNP</div>
   </div>
