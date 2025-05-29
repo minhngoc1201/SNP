@@ -229,6 +229,9 @@
         ctx.drawImage(frame, 0, 0, w, h);
         showDownload();
       };
+      frame.onerror = () => {
+        showDownload();
+      };
       frame.src = selectedFrameUrl;
     } else {
       showDownload();
@@ -236,9 +239,9 @@
   });
 
   function showDownload() {
-    const dataURL = canvas.toDataURL('image/png');
+    const dataURL = canvas.toDataURL("image/png");
     download.href = dataURL;
-    download.style.display = 'inline';
+    download.style.display = "inline";
   }
 </script>
 
