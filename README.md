@@ -20,7 +20,8 @@
       margin: 20px;
     }
     header img {
-      max-width: 150px;
+      max-width: 100px;
+      height: auto;
     }
     video, canvas {
       width: 100%;
@@ -52,7 +53,7 @@
 <body>
 
 <header>
-  <img src="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/bg-key-visual-run-as-one-2025-01-6838100db8936.png" alt="Logo Thương hiệu">
+  <img src="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/logo-run-as-one-2025-01-6838105ac2103.png" alt="Logo Thương hiệu">
   <h1>Photobooth SNP</h1>
 </header>
 
@@ -60,9 +61,7 @@
   <label for="frameSelect">Chọn khung hình:</label>
   <select id="frameSelect">
     <option value="">-- Không khung --</option>
-    <option value="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/meet-tribe-06-1-683817714cf39.png">Khung Xanh Dương</option>
-    <option value="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/meet-tribe-06-1-683817714cf39.png">Khung Hồng</option>
-    <option value="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/meet-tribe-06-1-683817714cf39.png">Khung Vàng</option>
+    <option value="https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/meet-tribe-06-1-683817714cf39.png">Khung RUN AS ONE 2025</option>
   </select>
   <button id="snap">📷 Chụp ảnh</button>
   <a id="download" download="photo.png">📥 Tải ảnh</a>
