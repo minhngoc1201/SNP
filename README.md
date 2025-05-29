@@ -220,11 +220,13 @@
     }
     canvas.width = w;
     canvas.height = h;
-    ctx.drawImage(frame, 0, 0, w, h);
-        showDownload();
-      };
-      frame.onerror = () => {
-        // Nếu ảnh load lỗi vẫn hiển thị nút tải
+    ctx.drawImage(video, 0, 0, w, h);
+
+    if (selectedFrameUrl) {
+      const frame = new Image();
+      frame.crossOrigin = "anonymous";
+      frame.onload = () => {
+        ctx.drawImage(frame, 0, 0, w, h);
         showDownload();
       };
       frame.src = selectedFrameUrl;
