@@ -20,7 +20,7 @@
       margin: 20px;
     }
     header img {
-      max-width: 100px;
+      max-width: 40px;
       height: auto;
     }
     video, canvas {
