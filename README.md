@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Photobooth Chụp Hình Thương Hiệu</title>
+  <title>Photobooth RUN AS ONE - V</title>
   <style>
     body {
       margin: 0;
@@ -108,7 +108,7 @@
     <label for="frameSelect">🖼️ Chọn khung hình thương hiệu:</label>
     <select id="frameSelect">
       <option value="">-- Chọn khung --</option>
-      <option value="https://i.imgur.com/7V4I4hR.png">Khung Xanh Dương</option>
+      <option value="[https://i.imgur.com/7V4I4hR.png](https://cdn.saigonnewport.com.vn/uploads/images/2025/05/29/meet-tribe-06-1-683817714cf39.png)">Khung Xanh Dương</option>
       <option value="https://i.imgur.com/8q4JcqA.png">Khung Hồng</option>
       <option value="https://i.imgur.com/oY6P2RF.png">Khung Vàng</option>
     </select>
